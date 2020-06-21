@@ -1,0 +1,9 @@
+const days = ['saturday', 'sunday'];
+const days1 = ['sat', 'sun'];
+
+export const getWeekends = (a) => {
+  if (a !== 'short') {
+    return days;
+  }
+  return days1;
+};
