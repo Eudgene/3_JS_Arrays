@@ -1,0 +1,7 @@
+const get = (arr, i, def = null) => {
+  if (arr[i] !== undefined) {
+    return arr[i];
+  }
+  return def;
+};
+export default get;
