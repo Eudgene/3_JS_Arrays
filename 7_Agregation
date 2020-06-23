@@ -1,0 +1,18 @@
+Реализуйте и экспортируйте по умолчанию функцию calculateSum, которая высчитывает сумму всех элементов массива, которые делятся без остатка на 3 (три).
+
+В случае пустого массива функция должна вернуть значение null (используйте в коде для этого guard expression):
+
+
+const calculateSum = (arr) => {
+  let sum = 0;
+  if (arr.length === 0) {
+    return null;
+  }
+  for (let i = 0; i < arr.length; i += 1) {
+    if ((arr[i] % 3) === 0) {
+      sum += arr[i];
+    }
+  }
+  return sum;
+};
+export default calculateSum;
