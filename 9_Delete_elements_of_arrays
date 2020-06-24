@@ -16,17 +16,11 @@ const getSameParity = (arr) => {
     return newarr;
   }
   const first = ma(arr[0]) % 2;
-  const fna = (arrr) => {
-    for (const value of arrr) {
-      if (ma(value) % 2 === first) {
-        newarr.push(value);
-      }
+  for (const value of arr) {
+    if (ma(value) % 2 === first) {
+      newarr.push(value);
     }
-    return newarr;
-  };
-  if (first === 0) {
-    fna(arr);
-  } else fna(arr);
+  }
   return newarr;
 };
 export default getSameParity;
