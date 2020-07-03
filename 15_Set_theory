@@ -15,15 +15,13 @@ countUniqChars(text3); // 0
 includes() – проверяет есть ли такой элемент в массиве
 
 const countUniqChars = (str) => {
-  let count = 0;
   const arr = str.split('');
   const newarr = [];
   for (const item of arr) {
     if (!newarr.includes(item)) {
       newarr.push(item);
-      count += 1;
     }
   }
-  return count;
+  return newarr.length;
 };
 export default countUniqChars;
