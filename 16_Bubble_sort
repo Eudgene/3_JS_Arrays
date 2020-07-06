@@ -1,0 +1,27 @@
+arrays.js
+Реализуйте и экспортируйте по умолчанию функцию, которая сортирует массив используя пузырьковую сортировку. Постарайтесь не подглядывать в текст теории и попробуйте воспроизвести алгоритм по памяти.
+
+Примеры
+import bubbleSort from '../arrays';
+
+bubbleSort([]); // []
+bubbleSort([3, 10, 4, 3]); // [3, 3, 4, 10]
+
+
+const bubbleSort = (items) => {
+  const itemCount = items.length - 1;
+  let swapped;
+  do {
+    swapped = false;
+    for (let i = 0; i < itemCount; i += 1) {
+      if (items[i] > items[i + 1]) {
+        const item = items[i];
+        items[i] = items[i + 1];
+        items[i + 1] = item;
+        swapped = true;
+      }
+    }
+  } while (swapped);
+  return items;
+};
+export default bubbleSort;
