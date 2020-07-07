@@ -1,0 +1,43 @@
+strings.js
+Реализуйте и экспортируйте функцию по умолчанию, которая принимает на вход строку, состоящую только из открывающих и закрывающих скобок разных типов, и проверяет является ли эта строка сбалансированной. Пустая строка (отсутствие скобок) считается сбалансированной.
+
+import isBracketStructureBalanced from './strings.js';
+
+// Пример вложенности
+isBracketStructureBalanced('[()]');  // true
+isBracketStructureBalanced('{<>}}'); // false
+Функция должна поддерживать, минимум, четыре вида скобок: круглые — (), квадратные — [], фигурные — {} и угловые — <>.
+
+Подсказки
+Решение учителя использует метод indexOf
+
+import * as _ from 'lodash';
+
+const openingSymbols = ['(', '[', '{', '<'];
+const closingSymbols = [')', ']', '}', '>'];
+
+// BEGIN (write your solution here)
+const isBracketStructureBalanced = (string) => {
+  const stack = [];
+  if (string.length === 1) {
+    return false;
+  }
+  for (const symbol of string) {
+    for (let i = 0; i < openingSymbols.length; i += 1) {
+      const openingSymbolsIndex = openingSymbols.indexOf(_.last(stack));
+      const closingSymbolsIndex = closingSymbols.indexOf(symbol);
+      if (symbol === openingSymbols[i]) {
+        stack.push(symbol);
+      } else if (symbol === closingSymbols[i]) {
+        if (openingSymbolsIndex === closingSymbolsIndex) {
+          stack.pop(symbol);
+        } else {
+          return false;
+        }
+      }
+    }
+  }
+  return stack.length === 0;
+};
+export default isBracketStructureBalanced;
+// END
