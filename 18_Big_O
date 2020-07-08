@@ -1,0 +1,53 @@
+arrays.js
+Реализуйте и экспортируйте по умолчанию функцию, которая принимает на вход два отсортированных массива и находит их пересечение.
+
+Примеры
+getIntersectionOfSortedArrays([10, 11, 24], [10, 13, 14, 18, 24, 30]); // [10, 24]
+
+getIntersectionOfSortedArrays([10, 11, 24], [-2, 3, 4]); // []
+
+getIntersectionOfSortedArrays([], [2]); // []
+Алгоритм
+Поиск пересечения двух неотсортированных массивов — операция, в рамках которой выполняется вложенный цикл с полной проверкой каждого элемента первого массива на вхождение во второй.
+
+Сложность данного алгоритма O(n * m) (произведение n и m), где n и m — размерности массивов. Если массивы отсортированы, то можно реализовать алгоритм, сложность которого уже O(n + m), что значительно лучше.
+
+Суть алгоритма довольно проста. В коде вводятся два указателя (индекса) на каждый из массивов. Начальное значение каждого указателя 0. Затем идёт проверка элементов, находящихся под этими индексами в обоих массивах. Если они совпадают, то значение заносится в результирующий массив, а оба индекса инкрементируются. Если значение в первом массиве больше, чем во втором, то инкрементируется указатель второго массива, иначе — первого.
+
+// BEGIN (write your solution here)
+/*const getIntersectionOfSortedArrays = (arr1, arr2) => {
+  const intersection = [];
+  if (arr1.length === 0 || arr2.length === 0) {
+    return intersection;
+  }
+  let indexArr1 = 0;
+  let indexArr2 = 0;
+  for (const item of arr1) {
+    if (arr2.includes(item)) {
+      intersection.push(item);
+    }
+  }
+  return intersection;
+};
+export default getIntersectionOfSortedArrays;*/
+const getIntersectionOfSortedArrays = (arr1, arr2) => {
+  const intersection = [];
+  if (arr1.length === 0 || arr2.length === 0) {
+    return intersection;
+  }
+  let indexArr1 = 0;
+  let indexArr2 = 0;
+  for (indexArr1; indexArr1 < arr1.length; indexArr1 += 1) {
+    for (indexArr2; indexArr2 < arr2.length; indexArr2 += 1) {
+      if (arr1[indexArr1] === arr2[indexArr2]) {
+        intersection.push(arr1[indexArr1]);
+        break;
+      } else if (arr1[indexArr1] < arr2[indexArr2]) {
+        break;
+      }
+    }
+  }
+  return intersection;
+};
+export default getIntersectionOfSortedArrays;
+// END
