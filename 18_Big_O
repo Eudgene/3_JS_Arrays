@@ -32,9 +32,6 @@ getIntersectionOfSortedArrays([], [2]); // []
 export default getIntersectionOfSortedArrays;*/
 const getIntersectionOfSortedArrays = (arr1, arr2) => {
   const intersection = [];
-  if (arr1.length === 0 || arr2.length === 0) {
-    return intersection;
-  }
   let indexArr1 = 0;
   let indexArr2 = 0;
   for (indexArr1; indexArr1 < arr1.length; indexArr1 += 1) {
