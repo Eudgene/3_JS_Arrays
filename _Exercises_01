@@ -1,0 +1,52 @@
+Матрицу можно представить в виде двумерного списка. Например, список [[1, 2, 3], [4, 5, 6], [7, 8, 9]] — это отображение матрицы:
+
+1 2 3
+4 5 6
+7 8 9
+snail.js
+Реализуйте и экспортируйте по умолчанию функцию, которая принимает на вход матрицу и возвращает список элементов матрицы по порядку следования от левого верхнего элемента по часовой стрелке к внутреннему. Движение по матрице напоминает улитку:
+Примеры:
+buildSnailPath([
+  [1, 2],
+  [3, 4],
+]); // [1, 2, 4, 3]
+
+buildSnailPath([
+  [1, 2, 3, 4],
+  [5, 6, 7, 8],
+  [9, 10, 11, 12],
+]) // [1, 2, 3, 4, 8, 12, 11, 10, 9, 5, 6, 7] 
+Подсказки
+В этом испытании можно использовать функции из библиотеки lodash.
+
+
+const buildSnailPath = (arr) => {
+  const result = [];
+  const newItem = [];
+  for (const item of arr) {
+    if (item === _.head(arr)) {
+      result.push(...item);
+    } else if (item !== _.head(arr) && item !== _.last(arr)) {
+      if (item.length === 1) {
+        result.push(...item);
+      } else {
+        result.push(_.last(item));
+        item.pop();
+        newItem.push(item);
+      }
+    } else if (item === _.last(arr)) {
+      result.push(..._.reverse(item));
+      if (newItem.length === 1) {
+        result.push(..._.flatten(newItem));
+      } else if (newItem.length > 1) {
+        result.push(_.head(_.last(newItem)));
+        result.push(..._.head(newItem));
+        const lastarr = _.last(newItem);
+        const [, ...other] = lastarr;
+        result.push(..._.reverse(other));
+      }
+    }
+  }
+  return result;
+};
+export default buildSnailPath;
