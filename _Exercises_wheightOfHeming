@@ -1,0 +1,49 @@
+Вес Хэмминга — это количество единиц в двоичном представлении числа.
+
+solution.js
+Реализуйте и экспортируйте по умолчанию функцию, которая считает вес Хэмминга.
+
+Примеры
+hammingWeight(0); // 0
+hammingWeight(4); // 1
+hammingWeight(101); // 4
+
+
+
+const hammingWeight = (number) => {
+  const counter = [];
+  let r = 0;
+  let resultDO = 0;
+  let res = 0;
+  const countNumber = (num) => {
+    r = num % 2;
+    return r;
+  };
+  const resFunc = (n) => {
+    if (countNumber(n) === 0) {
+      counter.push(0);
+      resultDO = n / 2;
+    } else {
+      counter.push(1);
+      resultDO = Math.round(n / 2) - 1;
+    }
+    return resultDO;
+  };
+  if (number === 0) {
+    return 0;
+  }
+  if (number === 1) {
+    return 1;
+  }
+  resFunc(number);
+  do {
+    resFunc(resultDO);
+  } while (resultDO !== 1);
+  counter.forEach((item) => {
+    if (item === 1) {
+      res += 1;
+    }
+  });
+  return res + 1;
+};
+export default hammingWeight;
