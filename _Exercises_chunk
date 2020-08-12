@@ -1,0 +1,35 @@
+chunk.js
+Реализуйте и экспортируйте функцию по умолчанию, которая принимает на вход массив и число, которое задает размер чанка (куска). Функция должна вернуть массив, состоящий из чанков указанной размерности.
+
+chunk(['a', 'b', 'c', 'd'], 2);
+// [['a', 'b'], ['c', 'd']]
+
+chunk(['a', 'b', 'c', 'd'], 3);
+// [['a', 'b', 'c'], ['d']]
+
+
+const chunk = (arr, num) => {
+  const result = [];
+  const enumeration = (n) => {
+    const newArr = [...n];
+    const preResult = [];
+    for (let i = 0; i < n.length; i += 1) {
+      if (i < num - 1) {
+        preResult.push(n[i]);
+        newArr.shift();
+        if (newArr.length === 0) {
+          result.push(preResult);
+        }
+      } else if (i === num - 1) {
+        preResult.push(n[i]);
+        result.push(preResult);
+        newArr.shift();
+        enumeration(newArr);
+      }
+    }
+    return result;
+  };
+  enumeration(arr);
+  return result;
+};
+export default chunk;
