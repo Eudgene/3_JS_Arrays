@@ -1,0 +1,73 @@
+Перед вами популярная игра "Морской бой".
+
+solution.js
+Реализуйте и экспортируйте функцию calcShipsCount, которая принимает на вход поле боя в виде квадратного двумерного массива из нулей и единиц. Ноль — пустая ячейка, единица — часть корабля. Функция должна вернуть количество кораблей на поле боя.
+
+Так как корабли не должны соприкасаться друг с другом, реализуйте и экспортируйте функцию isValidField, которая проверяет расстановку кораблей на корректность.
+
+Примеры
+calcShipsCount([]); // 0
+calcShipsCount([
+  [0, 1, 0, 0, 0, 0],
+  [0, 1, 0, 1, 1, 1],
+  [0, 0, 0, 0, 0, 0],
+  [0, 1, 1, 1, 0, 1],
+  [0, 0, 0, 0, 0, 1],
+  [1, 1, 0, 1, 0, 0],
+]); // 6
+isValidField([
+  [0, 1, 0, 0],
+  [1, 0, 0, 1],
+  [0, 0, 0, 0],
+  [0, 1, 1, 1],
+]); // false
+
+
+
+export const calcShipsCount = (arr) => {
+  let count = 0;
+  if (arr.length < 1) {
+    return count;
+  }
+  for (let i = 0; i < arr.length; i += 1) {
+    for (let n = 0; n < arr.length; n += 1) {
+      if (arr[i][n] === 1 && arr[i][n - 1] !== 1) {
+        if (arr[i][n] === 1 && arr[n][i - 1] !== 1) {
+          count += 1;
+        }
+      }
+    }
+  }
+  return count;
+};
+
+export const isValidField = (arr) => {
+  let result = true;
+  const count = [];
+  const count1 = [];
+  for (let i = 0; i < arr.length; i += 1) {
+    for (let n = 0; n < arr.length; n += 1) {
+      const countIn = [];
+      const countIn1 = [];
+      const countIn2 = [];
+      if (arr[i][n] === 1) {
+        countIn2.push(i, n);
+        count1.push(countIn2);
+        countIn.push(i + 1);
+        countIn.push(n + 1);
+        countIn1.push(i + 1);
+        countIn1.push(n - 1);
+        count.push(countIn);
+        count.push(countIn1);
+      }
+    }
+  }
+  count1.forEach((iten) => {
+    count.forEach((item) => {
+      if (item[0] === iten[0] && item[1] === iten[1]) {
+        result = false;
+      }
+    });
+  });
+  return result;
+};
