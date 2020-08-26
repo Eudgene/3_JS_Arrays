@@ -1,0 +1,103 @@
+solution.js
+Реализуйте и экспортируйте по умолчанию функцию, которая принимает на вход массив интервалов и возвращает сумму всех длин интервалов. В данной задаче используются только интервалы целых чисел от -100 до 100 , которые представлены в виде массива. Первое значение интервала всегда будет меньше, чем второе значение. Например, длина интервала [-100, 0] равна 100, а длина интервала [5, 5] равна 0. Пересекающиеся интервалы должны учитываться только один раз.
+
+Примеры
+
+sumIntervals([
+   [5, 5]
+]); // 0
+
+sumIntervals([
+   [-100, 0]
+]); // 100
+
+sumIntervals([
+   [1, 2],
+   [11, 12]
+]); // 2
+
+sumIntervals([
+   [2, 7],
+   [6, 6]
+]); // 5
+
+sumIntervals([
+   [1, 9],
+   [7, 12],
+   [3, 4]
+]); // 11
+
+sumIntervals([
+   [1, 5],
+   [-30, 19],
+   [1, 7],
+   [16, 19],
+   [5, 100]
+]); // 130
+
+const srv = (arrgum) => {
+  let maxElement;
+  let maxElementMin = 0;
+  for (const item of arrgum) {
+    const [it1, it2] = item;
+    if (arrgum.indexOf(item) === 0) {
+      maxElement = item;
+      maxElementMin = it2 - it1;
+    } else if (it2 - it1 > maxElementMin) {
+      maxElement = item;
+    }
+  }
+
+  const result = [];
+  const preResult = [];
+  for (const inet of arrgum) {
+    const [min, max] = inet;
+    const [ar1, ar2] = maxElement;
+    if (ar1 > max || ar2 < min) {
+      result.push(maxElement);
+      preResult.push(inet);
+    } else if (ar1 <= min) {
+      if (ar2 < max) {
+        result.splice(0, 1, [ar1, max]);
+      } else if (ar2 > max) {
+        if (result.length === 0) {
+          result.splice(0, 1, maxElement);
+        }
+      }
+    } else if (ar1 > min) {
+      if (ar2 < max) {
+        result.splice(0, 1, [min, max]);
+      } else {
+        maxElement = [min, ar2];
+      }
+    }
+  }
+
+  const countItog = (tt) => {
+    let itog = 0;
+    for (const b of tt) {
+      const [a, c] = b;
+      itog += c - a;
+    }
+    return itog;
+  };
+  if (preResult.length === 0) {
+    return countItog(result);
+  }
+  return countItog(result) + countItog(preResult);
+};
+
+const sumIntervals = (arr) => {
+  let countSum = 0;
+  const [[arr1, arr2]] = arr;
+  if (arr.length === 1) {
+    countSum += arr2 - arr1;
+  } else if (arr1 === arr2) {
+    countSum += 0;
+  } else {
+    const newArr = arr.slice();
+    countSum += srv(newArr);
+  }
+  return countSum;
+};
+export default sumIntervals;
